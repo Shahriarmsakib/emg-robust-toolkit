@@ -36,6 +36,8 @@ This reads the sweep results shipped in `results/` and writes `report/` in a few
 
 The % change is computed for every run against the clean baseline of the same model and user session, `(perturbed − clean) / clean × 100`, and then averaged over seeds. Negative values are kept, not clipped. Use `--metric fingertip` for the same report on fingertip error, and `--readme README.md` to refresh the results table below.
 
+Want a feel for the perturbations themselves first? `notebooks/demo.ipynb` runs the real `emg_robust/perturbations.py` functions on a synthetic signal and a toy model — add `torch` (CPU) to the three packages above and it needs no dataset, checkpoints or GPU either.
+
 ## Run a sweep
 
 One-time setup — emg2pose and its UmeTrack submodule aren't on PyPI, and the repo needs a small patch to import under Python 3.13 (it was written for 3.10; a type-hint style that needs deferred annotation evaluation):
