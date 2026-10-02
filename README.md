@@ -125,7 +125,7 @@ Fig. 2: Increase in landmark error (%) relative to each user–model clean basel
 
 ## Notes and limitations
 
-- **Scope.** Two held-out emg2pose users (U1 = session `d387095792`, U2 = session `29ddab35d7`) and two models. The results demonstrate the toolkit; they are not a statistical comparison of models.
+- **Scope.** Two held-out emg2pose users (U1 = user `d387095792`, U2 = user `29ddab35d7`) and two models. The results demonstrate the toolkit; they are not a statistical comparison of models.
 - **Mild dropout.** Seeds 0 and 2 both drop channel 13, so the mild level covers 4 distinct channel sets in 5 runs. The shipped results are reported as-run, without resampling to avoid the collision. `make_report.py` prints this check whenever it finds repeated channel sets.
 - **Noise scale.** σ<sub>c</sub> is computed per window, so the noise level follows each window's own signal level.
 - **Fingertip error** is in `report/summary.csv`. Its % change closely tracks landmark error (r = 0.997 across the 48 conditions).
