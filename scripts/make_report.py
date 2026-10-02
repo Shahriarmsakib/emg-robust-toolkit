@@ -330,13 +330,22 @@ def heatmap(S, metric, fs, pdf_path, png_path):
 def fig2_tex(info, S, metric):
     stoch = [PERT_PROSE.get(p, p) for p in info["perts"] if S[S.perturbation == p].n_runs.max() > 1]
     n = int(S.n_runs.max())
-    cap = (f"Increase in {metric} error (\\%) relative to each user and model's clean baseline (darker = larger). "
-           "Rows: perturbation, with its swept parameter, and held out user; columns: model and severity.")
+    cap = (f"Increase in {metric} error (\\%) relative to each user and model clean baseline (darker = larger). "
+           "Rows: perturbation, with its swept parameter, and held-out user; columns: model and severity.")
     if "noise" in info["perts"]:
-        cap += (f" Noise std is $\\alpha\\,\\sigma_c$, where $\\sigma_c$ is the standard deviation of channel $c$ "
-                f"within the {WINDOW_S} s window.")
+        cap += (f" Noise std is $\\alpha\\,\\sigma_c$, where $\\sigma_c$ is channel $c$'s SD within the "
+                f"{WINDOW_S} s window.")
     if stoch:
         cap += f" {' and '.join(stoch).capitalize()} cells average {n} seeds."
+    if "n_distinct_channel_sets" in S.columns:
+        drp = S[(S.perturbation == "dropout") & S.n_distinct_channel_sets.notna()]
+        coll = drp[drp.n_distinct_channel_sets < drp.n_runs]
+        if not coll.empty:
+            lvls = ordered(coll.level, LEVEL_ORDER)
+            n_sets, n_runs = int(coll.n_distinct_channel_sets.min()), int(coll.n_runs.max())
+            cap += (f" At the {' and '.join(lvls)} level{'s' if len(lvls) > 1 else ''}, a seed collision leaves "
+                    f"only {n_sets} distinct channel set{'s' if n_sets != 1 else ''} across the {n_runs} runs "
+                    "(see repository README).")
     p, u, m, lv = info["max_key"]
     desc = (f"Grayscale heatmap of the percent increase in {metric} error. Rows are "
             f"{len(info['perts'])} perturbations (" + ", ".join(PERT_NAME.get(x, x).lower() for x in info["perts"])
