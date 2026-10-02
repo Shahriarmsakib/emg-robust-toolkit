@@ -22,6 +22,10 @@ MINI_URL = "https://fb-ctrl-oss.s3.amazonaws.com/emg2pose/emg2pose_dataset_mini.
 FULL_URL = "https://fb-ctrl-oss.s3.amazonaws.com/emg2pose/emg2pose_dataset.tar"
 CKPT_URL = "https://fb-ctrl-oss.s3.amazonaws.com/emg2pose/emg2pose_model_checkpoints.tar.gz"
 
+# Despite the name, these are per-user IDs (the `user` column in metadata.csv),
+# not emg2pose session IDs (e.g. EXISTING_SESSION below) -- a single user's
+# recordings span multiple sessions, and U1/U2 here are the same two users
+# throughout the sweep regardless of which session a given recording came from.
 USER_SESSION = {1: "d387095792", 2: "29ddab35d7"}
 EXISTING_SESSION = "2022-12-06-1670313600-e3096-cv-emg-pose-train@2"  # the session already in the mini set
 SAFETY_CAP_BYTES = 20 * 1024**3  # stop streaming the full archive after this many bytes scanned
