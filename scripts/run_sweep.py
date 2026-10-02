@@ -11,11 +11,15 @@ over 406 windows). Checkpoints and the two held-out sessions are downloaded
 automatically into --cache on first use.
 """
 import argparse
+import sys
 from pathlib import Path
 
-from emg_robust import adapter, data, sweep
-
 REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO))  # running `python scripts/run_sweep.py` puts scripts/ (not
+                                # the repo root) on sys.path, so emg_robust won't import
+                                # without this -- it's never pip-installed anywhere in setup.
+
+from emg_robust import adapter, data, sweep  # noqa: E402
 
 
 def main():
