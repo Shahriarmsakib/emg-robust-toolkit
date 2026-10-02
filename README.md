@@ -40,7 +40,7 @@ Want a feel for the perturbations themselves first? `notebooks/demo.ipynb` runs 
 
 ## Run a sweep
 
-One-time setup — emg2pose and its UmeTrack submodule aren't on PyPI, and the repo needs a small patch to import under Python 3.13 (it was written for 3.10; a type-hint style that needs deferred annotation evaluation):
+One-time setup — emg2pose and its UmeTrack submodule aren't on PyPI, and the repo needs a small patch to import under Python 3.13 (it was written for 3.10; a type-hint style that needs deferred annotation evaluation). `bash scripts/setup_emg2pose.sh` does the steps below for you:
 
 ```bash
 git clone https://github.com/facebookresearch/emg2pose.git emg2pose_repo
